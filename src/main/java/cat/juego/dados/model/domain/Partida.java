@@ -17,6 +17,30 @@ public class Partida {
 		}
 		this.resultado = resultado;
 	}
+	public String getUsuario() {
+		return usuario;
+	}
+	public void setUsuario(String usuario) {
+		this.usuario = usuario;
+	}
+	public int getDado1() {
+		return dado1;
+	}
+	public void setDado1(int dado1) {
+		this.dado1 = dado1;
+	}
+	public int getDado2() {
+		return dado2;
+	}
+	public void setDado2(int dado2) {
+		this.dado2 = dado2;
+	}
+	public String getResultado() {
+		return resultado;
+	}
+	public void setResultado(String resultado) {
+		this.resultado = resultado;
+	}
 	
 	
 	
