@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+ 
+ <html xmlns:th="https://www.thymeLeaf.org">
+ <head>
+ <meta charset= "utf-8">
+ <title> Cuenta </title>
+ <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+
+ </head>
+ <body >
+  <nav class="navbar navbar-expand-lg p-3 mb-2 bg-secondary text-white">
+	  <div class="container-fluid">
+	    <a class="nav-link" href="#">Ranquings</a> 
+	          <a class="nav-link" href="/sucursal/add">Jugar</a>
+	  </div>
+	</nav>
+ 	<br>
+ 		<h1 class="mx-auto"  style="width: 600px;" >Perfil:</h1>
+ 	<br>	
+	<!-- On tables -->
+
+	<table  class="table table-dark table-striped mx-auto" style="width: 900px;"  >.
+		<thead>
+	    <tr>
+	      
+	      <th scope="col">Nombre</th>
+	      <th scope="col">Fecha de alta</th>
+
+	    </tr>
+	  </thead>
+	  <tbody>
+	    <tr th:each="usuaris:${usuaris}">
+		     <td th:text="${usuaris.nombre}">1</td>
+			 <td th:text="${usuaris.date}">2</td>
+			
+
+	    </tr>   
+	  </tbody>
+	</table>
+	<div class="mx-auto" style="width: 900px;">
+  <button type="submit" class="btn btn-warning" href=#>Cambiar nombre</button>
+	</div >
+	<br>
+	<h2  class="mx-auto"  style="width: 600px;" >Partidas: </h2>
+	<table class="table table-dark table-striped mx-auto" style="width: 900px;"  >.
+		<thead>
+	    <tr>
+	      <th scope="col">Dado1</th>
+	      <th scope="col">Dado2</th>
+	      <th scope="col">Resultado</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	    <tr th:each="dado:${dado}">
+		     <td th:text="${dado.dado1}">1</td>
+			 <td th:text="${dado.dado2}">2</td>
+			 <td th:text="${dado.resultado}">resultado</td>
+	    </tr>   
+	  </tbody>
+	</table>
+	
+ </body>
+ </html>

@@ -3,25 +3,29 @@
  <html xmlns:th="https://www.thymeLeaf.org">
  <head>
  <meta charset= "utf-8">
- <title> Update </title>
+ <title> Login </title>
  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 
  </head>
  <body>
+ 	
+ 	<nav class="navbar navbar-expand-lg bg-light">
+	  <div class="container-fluid">
+	    <a class="navbar-brand" href="#">Ranquings</a> 
+	          <a class="nav-link" href="/sucursal/add">Mi cuenta</a>
+	  </div>
+	</nav>	
+	<br>
+ 		<h1 class="mx-auto"  style="width: 400px;" >Cambiar nombre:</h1>
  	<br>
- 		<h1 class="mx-auto"  style="width: 600px;" >Darse de alta:</h1>
- 	<br>	
 	 <div class="mx-auto" style="width: 400px;">
-		 <form>
+		 <form th:action="@{/usuario}" th:object="${Usuario}" method= "POST">
 		  <div class="mb-3">
 		    <label for="exampleInputEmail1" class="form-label">Nombre:</label>
-		    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+		    <input type="text" name="nombre" th:field="*{nombre}" class="form-control" placeholder= "Escribe el nombre... ">
 		    <div id="emailHelp" class="form-text">Debes usar un nombre que no este en uso.</div>
 		  </div>
-		  <div class="mb-3">
-		    <label for="exampleInputPassword1" class="form-label">Password:</label>
-		    <input type="password" class="form-control" id="exampleInputPassword1">
-		  </div>
+		 
 		  
 		  <button type="submit" class="btn btn-primary">Submit</button>
 		</form>
