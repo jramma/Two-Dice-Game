@@ -65,10 +65,11 @@ public class ImplementsUService implements UserService {
 		usuario.getPartidas().add(partida);
 		partidas.save(partida);
 	}
-
+	
+	@SuppressWarnings("deprecation")
 	@Override
-	public Usuario deletePartidasUser(Usuario usuario) {
-
+	public Usuario deletePartidasUser(Integer id) {
+		Usuario usuario = usuarios.getById(id);
 		for (int i = 0; usuario.getPartidas().size() > i; i++) {
 			partidas.delete(usuario.getPartidas().get(i));
 		}
@@ -77,7 +78,7 @@ public class ImplementsUService implements UserService {
 	}
 
 	@Override
-	public List<Usuario> jugadoresYSusRanquings() {
+	public List<Usuario> jugadores() {
 		return usuarios.findAll();
 	}
 
@@ -135,7 +136,12 @@ public class ImplementsUService implements UserService {
 	@Override
 	public List<Partida> listaJugadas() {
 		return partidas.findAll();
-		
+
 	}
 
+	@SuppressWarnings("deprecation")
+	@Override
+	public Usuario findById(int id) {
+		return usuarios.getById(id);
+	}
 }

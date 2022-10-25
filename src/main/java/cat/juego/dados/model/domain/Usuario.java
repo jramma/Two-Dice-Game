@@ -86,8 +86,9 @@ public class Usuario {
 				derrotas.add(1);
 			}
 		}
-		return victorias.size() / (victorias.size()+derrotas.size());	
-	
+		double media = victorias.size() / (victorias.size()+derrotas.size());	
+		
+		return media;
 	}
 
 	

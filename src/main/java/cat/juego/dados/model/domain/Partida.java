@@ -41,6 +41,11 @@ public class Partida {
 	public void setResultado(String resultado) {
 		this.resultado = resultado;
 	}
+	@Override
+	public String toString() {
+		return "Partida [usuario=" + usuario + ", dado1=" + dado1 + ", dado2=" + dado2 + ", resultado=" + resultado
+				+ "]";
+	}
 	
 	
 	

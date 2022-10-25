@@ -21,10 +21,10 @@ public interface UserService {
 	public Partida jugar(Usuario usuasrio);
 	public void guardarPartida(Partida partida, Usuario usuario);
 //	DELETE /players/{id}/games: elimina les tirades del jugador/a.
-	public Usuario deletePartidasUser(Usuario usuario);
+	public Usuario deletePartidasUser(Integer id);
 
 //	GET /players/: retorna el llistat de tots  els jugadors/es del sistema amb el seu  percentatge mitjà d’èxits. 
-	public List<Usuario> jugadoresYSusRanquings();
+	public List<Usuario> jugadores();
 
 //	GET /players/{id}/games: retorna el llistat de jugades per un jugador/a.  
 	public ArrayList<Partida> listaJugadas(Usuario usuario);
@@ -38,5 +38,8 @@ public interface UserService {
 	public Usuario mejorUsuario();
 
 	public List<Partida> listaJugadas();
+	
+	public Usuario findById(int id);
+
 
 }
