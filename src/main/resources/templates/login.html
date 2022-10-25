@@ -8,38 +8,23 @@
 
  </head>
  <body>
- 
- 
-	 <nav class="navbar navbar-expand-lg bg-light">
-	  <div class="container-fluid">
-	    <a class="navbar-brand" href="/sucursal/getAll">Ranquings</a> 
-	          
-	  </div>
-	</nav>
- <br>
- 	<div calss = "container">
- 		<div class= "row">
- 			<div calss="col-lg-6 col-md-6 container justify-content-center card">
- 				<h1 class="text-center"> Iniciar sesión </h1>
- 				<div class= "card-body">
- 					<form th:action="@{/sucursales/{id}(id=${Sucursal.pk_SucursalID})}" th:object="${Sucursal}" method= "POST">					
-	 					<div class= "form-group"> 
-	 						<label>Name: </label>
-	 						<input type="text" name="name" th:field="*{nombre}" class="form-control" placeholder= "Write the name..." > 						
-	 					</div>
-	 					<br>
-	 					<div class= "form-group">
-	 						<label>Pasword: </label>
-	 						<input type="password" name="password" th:field="*{password}" class="form-control" placeholder= "Write password..."  > 						
-	 					</div>
-	 					<br>
-	 					<div class= "box-footer">
-	 						<button class= "btn btn-success"> Save </button>		
-	 					</div>
- 					</form>
- 				</div>	
- 			</div>
- 		</div>
+ 	<br>
+ 		<h1 class="mx-auto"  style="width: 600px;" >Darse de alta:</h1>
+ 	<br>	
+	 <div class="mx-auto" style="width: 400px;">
+		 <form>
+		  <div class="mb-3">
+		    <label for="exampleInputEmail1" class="form-label">Nombre:</label>
+		    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+		    <div id="emailHelp" class="form-text">Debes usar un nombre que no este en uso.</div>
+		  </div>
+		  <div class="mb-3">
+		    <label for="exampleInputPassword1" class="form-label">Password:</label>
+		    <input type="password" class="form-control" id="exampleInputPassword1">
+		  </div>
+		  
+		  <button type="submit" class="btn btn-primary">Submit</button>
+		</form>
 	 </div>
  </body>
  </html>
