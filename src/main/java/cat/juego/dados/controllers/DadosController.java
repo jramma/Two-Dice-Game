@@ -16,6 +16,7 @@ import cat.juego.dados.model.services.UserService;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -30,22 +31,37 @@ public class DadosController {
 
 //	POST: /players/add: crea un jugador/a. 
 
-	@PostMapping({ "/add" })
-	public String addUsuario(@RequestBody Usuario usuario, Model model) {
+	@GetMapping({ "/add" })
+	public String addUsuario( Model model) {
 		ResponseEntity<?> respuesta = null;
-		Usuario usuario1 = buscarUsuario(usuario);
-		if (usuario1 == null) {
-			respuesta = new ResponseEntity<String>("El usuario ya existe", HttpStatus.INTERNAL_SERVER_ERROR);
-		} else {
-			try {
-				Usuario usuarioGuardado = service.addUser(usuario);
-				respuesta = new ResponseEntity<Usuario>(usuarioGuardado, HttpStatus.CREATED);
-			} catch (Exception e) {
-				respuesta = new ResponseEntity<String>(e.getCause().toString(), HttpStatus.INTERNAL_SERVER_ERROR);
-			}
-		}
+		
 		// si el usuario ya existe el nombre se queda como anónimo
 		return "login";
+	}
+	@GetMapping({ "/add" })
+	public String editarFruta(Model model) {
+		Usuario usuario = new Usuario();
+		model.addAttribute("Usuario", usuario);
+		return "update"; // te devueve el html
+	}
+
+	@PostMapping("/adding")
+	public String addSucursal(@ModelAttribute("usuario") Usuario usuario) {
+		String respuesta ;
+		Usuario usuario1 = buscarUsuario(usuario);
+		if (usuario1 == null) {
+			respuesta = "yaExiste";
+		} else {
+			try {
+				service.addUser(usuario);
+				respuesta = "redirect:/players";
+			} catch (Exception e) {
+				respuesta = "error";
+			}
+		}
+
+		
+		return respuesta ;
 	}
 
 	private Usuario buscarUsuario(Usuario usuario) {

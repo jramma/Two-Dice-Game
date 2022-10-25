@@ -23,6 +23,9 @@ import lombok.Setter;
 @Entity
 @Table(name = "usuaris")
 public class Usuario {
+	public Usuario() {
+	}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id_usuari;
