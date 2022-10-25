@@ -7,8 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+
 
 import cat.juego.dados.model.domain.Partida;
 import cat.juego.dados.model.domain.Usuario;
@@ -19,11 +18,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+
 
 @Controller
-@RequestMapping("/players")
 public class DadosController {
 
 	@Autowired
@@ -31,29 +28,22 @@ public class DadosController {
 
 //	POST: /players/add: crea un jugador/a. 
 
-	@GetMapping({ "/add" })
-	public String addUsuario( Model model) {
-		ResponseEntity<?> respuesta = null;
-		
-		// si el usuario ya existe el nombre se queda como anónimo
-		return "login";
-	}
-	@GetMapping({ "/add" })
-	public String editarFruta(Model model) {
+	@GetMapping({ "/players/add" })
+	public String addUsuario(Model model) {
 		Usuario usuario = new Usuario();
-		model.addAttribute("Usuario", usuario);
-		return "update"; // te devueve el html
+		model.addAttribute("usuario", usuario);
+		return "login1"; // te devueve el html
 	}
 
-	@PostMapping("/adding")
-	public String addSucursal(@ModelAttribute("usuario") Usuario usuario) {
+	@PostMapping("/players/adding")
+	public String saveUser(@ModelAttribute("usuario") Usuario usuario) {
 		String respuesta ;
 		Usuario usuario1 = buscarUsuario(usuario);
 		if (usuario1 == null) {
-			respuesta = "yaExiste";
+			respuesta = "error";
 		} else {
 			try {
-				service.addUser(usuario);
+				service.saveUser(usuario);
 				respuesta = "redirect:/players";
 			} catch (Exception e) {
 				respuesta = "error";
@@ -83,18 +73,12 @@ public class DadosController {
 
 // PUT /players: modifica el nom del jugador/a.
 
-	@PutMapping("/update")
-	public String updateUser(@RequestBody Usuario usuario) {
-		ResponseEntity<?> respuesta = null;
-		try {
-			Usuario userS = service.addUser(usuario);
-			respuesta = new ResponseEntity<Usuario>(userS, HttpStatus.CREATED);
-		} catch (Exception e) {
-			respuesta = new ResponseEntity<String>(e.getCause().toString(), HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-
-		return "update";
-	}
+//	@PutMapping("/players/update")
+//	public String updateUser(Model model) {
+//		Usuario usuario = new Usuario();
+//		model.addAttribute("usuario", usuario);
+//		return "update";
+//	}
 
 	// POST /players/{id}/games/ : un jugador/a específic realitza una tirada dels
 	// daus.
@@ -126,7 +110,7 @@ public class DadosController {
 
 	// GET /players/: retorna el llistat de tots els jugadors/es del sistema amb el
 	// seu percentatge mitjà d’èxits.
-	@GetMapping
+	@GetMapping("/players")
 	public String getJugadorsRanq(Model model) {
 		model.addAttribute("jugadores", service.jugadores());
 		model.addAttribute("partidas", service.listaJugadas());
@@ -134,7 +118,7 @@ public class DadosController {
 	}
 
 	// GET /players/{id}/games: retorna el llistat de jugades per un jugador/a.
-	@GetMapping(" /players/{id}/games ")
+	@GetMapping("/players/{id}/games ")
 	public String getJugadorRanq(@PathVariable int id, Model model) {
 		model.addAttribute("jugador", service.findById(id));
 		model.addAttribute("jugadas", service.listaJugadas(service.findById(id)));
@@ -155,7 +139,7 @@ public class DadosController {
 
 	// GET /players/ranking/loser: retorna el jugador/a amb pitjor percentatge
 	// d’èxit.
-	@GetMapping("/ranking/loser")
+	@GetMapping("/players/ranking/loser")
 	public String getWorst(Model model) {
 		model.addAttribute("jugador", service.peorUsuario());
 		model.addAttribute("ranquing", service.peorUsuario().getRanquing());
@@ -164,10 +148,11 @@ public class DadosController {
 
 	// GET /players/ranking/winner: retorna el jugador amb pitjor percentatge
 	// d’èxit.
-	@GetMapping("/ranking/winner")
+	@GetMapping("/players/ranking/winner")
 	public String getBest(Model model) {
 		model.addAttribute("jugador", service.mejorUsuario());
 		model.addAttribute("ranquing", service.mejorUsuario().getRanquing());
 		return "stats"; // te devueve el html
 	}
+	
 }

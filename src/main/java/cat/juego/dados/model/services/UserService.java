@@ -12,10 +12,9 @@ import cat.juego.dados.model.domain.Usuario;
 public interface UserService {
 
 //	POST: /players: crea un jugador/a.
-	public Usuario addUser(Usuario usuario);
+	public Usuario saveUser(Usuario usuario);
 
 //	PUT /players: modifica el nom del jugador/a.
-	public Usuario updateUser(Usuario usuario);
 
 //	POST /players/{id}/games/ : un jugador/a específic realitza una tirada dels daus.  
 	public Partida jugar(Usuario usuasrio);

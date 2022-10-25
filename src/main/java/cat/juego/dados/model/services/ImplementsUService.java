@@ -21,39 +21,31 @@ public class ImplementsUService implements UserService {
 	private UserRepository usuarios;
 
 	@Override
-	public Usuario addUser(Usuario usuario) {
-		String nombre = buscarUsuario(usuario);
-		usuario.setNombre(nombre);
-		Usuario usuarioSaved = usuarios.save(usuario);
-		return usuarioSaved;
+	public Usuario saveUser(Usuario usuario) {
+		//String nombre = buscarUsuario(usuario);
+		return usuarios.save(usuario);
+		
 	}
 
-	private String buscarUsuario(Usuario usuario) {
-		ArrayList<Usuario> todos = (ArrayList<Usuario>) usuarios.findAll();
-		int i = 0;
-		String nom = null;
-		boolean encontrado = false;
-		while (i < todos.size() && !encontrado) {
-			if (todos.get(i).getNombre().equals(usuario.getNombre())) {
-				System.out.println("El nombre ya existe");
-				encontrado = true;
-				nom = "ANONIM";
-			}
-		}
-		if (!encontrado) {
-			nom = usuario.getNombre();
-		}
-		return nom;
+//	private String buscarUsuario(Usuario usuario) {
+//		ArrayList<Usuario> todos = (ArrayList<Usuario>) usuarios.findAll();
+//		int i = 0;
+//		String nom = null;
+//		boolean encontrado = false;
+//		while (i < todos.size() && !encontrado) {
+//			if (todos.get(i).getNombre().equals(usuario.getNombre())) {
+//				System.out.println("El nombre ya existe");
+//				encontrado = true;
+//				nom = "ANONIM";
+//			}
+//		}
+//		if (!encontrado) {
+//			nom = usuario.getNombre();
+//		}
+//		return nom;
+//
+//	}
 
-	}
-
-	@Override
-	public Usuario updateUser(Usuario usuario) {
-		String nombre = buscarUsuario(usuario);
-		usuario.setNombre(nombre);
-		Usuario usuarioSaved = usuarios.save(usuario);
-		return usuarioSaved;
-	}
 
 	@Override
 	public Partida jugar(Usuario usuario) {

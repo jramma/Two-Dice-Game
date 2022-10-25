@@ -23,8 +23,7 @@ import lombok.Setter;
 @Entity
 @Table(name = "usuaris")
 public class Usuario {
-	public Usuario() {
-	}
+	
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,11 +38,14 @@ public class Usuario {
 	private ArrayList <Partida> partidas;
 	private String date;
 	
-	public Usuario(String nombre,int id_usuari) {
+	public Usuario() {
+	}
+	
+	public Usuario(String nombre, String password) {
 		DateFormat dateFormat = new SimpleDateFormat("EEE, MMM d, yyyy '@' HH:mm:ss");
 		this.nombre = nombre;
+		this.password = password;
 		this.partidas = new ArrayList<Partida>();
-		this.id_usuari = id_usuari;
 		this.date = dateFormat.format(Calendar.getInstance().getTime());
 	}
 
