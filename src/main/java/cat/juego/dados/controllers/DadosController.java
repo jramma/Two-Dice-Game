@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,7 +21,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-@RestController
+@Controller
 @RequestMapping("/players")
 public class DadosController {
 
@@ -30,7 +31,7 @@ public class DadosController {
 //	POST: /players/add: crea un jugador/a. 
 
 	@PostMapping({ "/add" })
-	public ResponseEntity<?> addUsuario(@RequestBody Usuario usuario) {
+	public String addUsuario(@RequestBody Usuario usuario, Model model) {
 		ResponseEntity<?> respuesta = null;
 		Usuario usuario1 = buscarUsuario(usuario);
 		if (usuario1 == null) {
@@ -44,7 +45,7 @@ public class DadosController {
 			}
 		}
 		// si el usuario ya existe el nombre se queda como anónimo
-		return respuesta;
+		return "login";
 	}
 
 	private Usuario buscarUsuario(Usuario usuario) {
@@ -64,10 +65,10 @@ public class DadosController {
 		return usuario;
 	}
 
-//		PUT /players: modifica el nom del jugador/a.
+// PUT /players: modifica el nom del jugador/a.
 
 	@PutMapping("/update")
-	public ResponseEntity<?> updateUser(@RequestBody Usuario usuario) {
+	public String updateUser(@RequestBody Usuario usuario) {
 		ResponseEntity<?> respuesta = null;
 		try {
 			Usuario userS = service.addUser(usuario);
@@ -76,13 +77,13 @@ public class DadosController {
 			respuesta = new ResponseEntity<String>(e.getCause().toString(), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
-		return respuesta;
+		return "update";
 	}
 
 	// POST /players/{id}/games/ : un jugador/a específic realitza una tirada dels
 	// daus.
 	@PostMapping(value = "/players/{id}/games/")
-	public ResponseEntity<?> jugar(@PathVariable("id") Integer id) {
+	public String jugar(@PathVariable("id") Integer id) {
 		ResponseEntity<?> respuesta = null;
 		try {
 			Partida partida = service.jugar(service.findById(id));
@@ -91,12 +92,12 @@ public class DadosController {
 		} catch (Exception e) {
 			respuesta = new ResponseEntity<String>(e.getCause().toString(), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		return respuesta;
+		return "juego";
 	}
 
 	// DELETE /players/{id}/games: elimina les tirades del jugador/a.
 	@DeleteMapping(value = "/players/{id}/games/")
-	public ResponseEntity<?> delete(@PathVariable("id") Integer id) {
+	public String delete(@PathVariable("id") Integer id) {
 		ResponseEntity<?> respuesta = null;
 		try {
 			service.deletePartidasUser(id);
@@ -104,7 +105,7 @@ public class DadosController {
 		} catch (Exception e) {
 			respuesta = new ResponseEntity<String>(e.getCause().toString(), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		return respuesta;
+		return "redirect:/add";
 	}
 
 	// GET /players/: retorna el llistat de tots els jugadors/es del sistema amb el
