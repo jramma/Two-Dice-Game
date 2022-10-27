@@ -39,6 +39,8 @@ public interface UserService {
 	public List<Partida> listaJugadas();
 	
 	public Usuario findById(int id);
+	
+	public int victoriasTotales();
 
 
 }

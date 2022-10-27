@@ -1,5 +1,6 @@
 package cat.juego.dados.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.ui.Model;
 
 import cat.juego.dados.model.domain.Partida;
 import cat.juego.dados.model.domain.Usuario;
+import cat.juego.dados.model.repository.PartidaRepository;
 import cat.juego.dados.model.services.UserService;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -25,6 +27,9 @@ public class DadosController {
 
 	@Autowired
 	private UserService service;
+	
+	@Autowired
+	private PartidaRepository partidas;
 
 //	POST: /players/add: crea un jugador/a. 
 
@@ -82,21 +87,16 @@ public class DadosController {
 
 	// POST /players/{id}/games/ : un jugador/a específic realitza una tirada dels
 	// daus.
-	@PostMapping(value = "/players/{id}/games/")
+	@PostMapping(value = "/pubilic/players/{id}/games/")
 	public String jugar(@PathVariable("id") Integer id) {
-		ResponseEntity<?> respuesta = null;
-		try {
 			Partida partida = service.jugar(service.findById(id));
-			respuesta = new ResponseEntity<String>(partida.toString() + " deleted", HttpStatus.OK);
 			service.guardarPartida(partida, service.findById(id));
-		} catch (Exception e) {
-			respuesta = new ResponseEntity<String>(e.getCause().toString(), HttpStatus.INTERNAL_SERVER_ERROR);
-		}
+		
 		return "juego";
 	}
 
 	// DELETE /players/{id}/games: elimina les tirades del jugador/a.
-	@DeleteMapping(value = "/players/{id}/games/")
+	@DeleteMapping(value = "/pubilic/players/delete/{id}")
 	public String delete(@PathVariable("id") Integer id) {
 		ResponseEntity<?> respuesta = null;
 		try {
@@ -128,12 +128,24 @@ public class DadosController {
 	// GET /players/ranking: retorna el ranking mig de tots els jugadors/es del
 	// sistema. És a dir, el percentatge mitjà d’èxits.
 	@GetMapping("/players/ranking")
-	public String getJugadorRanq(Model model) {
+	public String getJugadoresRanq(Model model) {
 		model.addAttribute("jugador", service.jugadores());
-
-		List<String> ranquings = null;
-		service.jugadores().forEach(n -> ranquings.add(String.valueOf(n.getRanquing())));
+		ArrayList<String> nombres = new ArrayList<String>();
+		ArrayList<String> ranquings = new ArrayList<String>();
+		 
+		for(int i = 0; i < service.jugadores().size();i++) {
+			nombres.add(service.jugadores().get(i).getNombre());
+			ranquings.add(String.valueOf(service.jugadores().get(i).getRanquing()));
+			i++;
+		}
+		double ranquingAbsoluto=0;
+		
+		if(service.listaJugadas().size()!=0) {
+		ranquingAbsoluto= service.victoriasTotales()/service.listaJugadas().size();
+		}
 		model.addAttribute("ranquing", ranquings);
+		
+		model.addAttribute("ranquingAbsoluto",String.valueOf(ranquingAbsoluto));
 		return "stats"; // te devueve el html
 	}
 

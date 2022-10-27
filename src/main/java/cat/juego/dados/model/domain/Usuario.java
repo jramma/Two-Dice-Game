@@ -18,7 +18,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-
+@Getter
+@Setter
+@NoArgsConstructor
 @Builder
 @Entity
 @Table(name = "usuaris")
@@ -82,18 +84,30 @@ public class Usuario {
 	}
 
 	public double getRanquing() {
-		ArrayList<Integer> victorias = null;
-		ArrayList<Integer> derrotas = null;
+		int victorias = 0;
+		int derrotas = 0;
 		for (int j = 0; j < partidas.size(); j++) {
 			if (partidas.get(j).getResultado().equalsIgnoreCase("victory")) {
-				victorias.add(1);
+				victorias ++;
 			} else {
-				derrotas.add(1);
+				derrotas ++;
 			}
 		}
-		double media = victorias.size() / (victorias.size()+derrotas.size());	
+		double media;
+		if(!(victorias== 0 && derrotas == 0)) {
+		 media = victorias/ (victorias+derrotas);	
+		}
 		
+		media = 0;
 		return media;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	

@@ -22,9 +22,9 @@ public class ImplementsUService implements UserService {
 
 	@Override
 	public Usuario saveUser(Usuario usuario) {
-		//String nombre = buscarUsuario(usuario);
+		// String nombre = buscarUsuario(usuario);
 		return usuarios.save(usuario);
-		
+
 	}
 
 //	private String buscarUsuario(Usuario usuario) {
@@ -46,7 +46,6 @@ public class ImplementsUService implements UserService {
 //
 //	}
 
-
 	@Override
 	public Partida jugar(Usuario usuario) {
 		return new Partida(usuario.getNombre(), (int) (Math.random() * 6), (int) (Math.random() * 6));
@@ -57,7 +56,7 @@ public class ImplementsUService implements UserService {
 		usuario.getPartidas().add(partida);
 		partidas.save(partida);
 	}
-	
+
 	@SuppressWarnings("deprecation")
 	@Override
 	public Usuario deletePartidasUser(Integer id) {
@@ -135,5 +134,18 @@ public class ImplementsUService implements UserService {
 	@Override
 	public Usuario findById(int id) {
 		return usuarios.getById(id);
+	}
+
+	@Override
+	public int victoriasTotales() {
+		int victorias = 0;
+
+		for (int i = 0; i < partidas.findAll().size(); i++) {
+			if (partidas.getById(i).getResultado().equals("victory")) {
+				victorias++;
+			}
+		}
+
+		return victorias;
 	}
 }

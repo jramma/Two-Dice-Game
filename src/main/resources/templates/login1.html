@@ -12,7 +12,7 @@
  		<h1 class="mx-auto"  style="width: 600px;" >Darse de alta:</h1>
  	<br>	
 	 <div class="mx-auto" style="width: 400px;">
-		 <form th:action="@{/usuario}" th:object="${Usuario}" method= "POST">
+		 <form th:action="@{/usuaris}" th:object="${usuario}" method= "POST">
 		  <div class="mb-3">
 		    <label for="exampleInputEmail1" class="form-label">Nombre:</label>
 		    <input type="text" name="nombre" th:field="*{nombre}" class="form-control" placeholder= "Escribe el nombre... ">
