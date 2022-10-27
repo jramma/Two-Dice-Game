@@ -4,15 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
-
 import cat.juego.dados.model.domain.Partida;
 import cat.juego.dados.model.domain.Usuario;
-import cat.juego.dados.model.repository.PartidaRepository;
 import cat.juego.dados.model.services.UserService;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -28,11 +25,11 @@ public class DadosController {
 	@Autowired
 	private UserService service;
 	
-	@Autowired
-	private PartidaRepository partidas;
+
 
 //	POST: /players/add: crea un jugador/a. 
-
+// http://localhost:9000/players/add
+	
 	@GetMapping({ "/players/add" })
 	public String addUsuario(Model model) {
 		Usuario usuario = new Usuario();
@@ -40,16 +37,16 @@ public class DadosController {
 		return "login1"; // te devueve el html
 	}
 
-	@PostMapping("/players/adding")
+	@PostMapping("/players")
 	public String saveUser(@ModelAttribute("usuario") Usuario usuario) {
 		String respuesta ;
 		Usuario usuario1 = buscarUsuario(usuario);
 		if (usuario1 == null) {
 			respuesta = "error";
-		} else {
+		}else {
 			try {
 				service.saveUser(usuario);
-				respuesta = "redirect:/players";
+				respuesta = "redirect:/players/getAll";
 			} catch (Exception e) {
 				respuesta = "error";
 			}
@@ -87,7 +84,7 @@ public class DadosController {
 
 	// POST /players/{id}/games/ : un jugador/a específic realitza una tirada dels
 	// daus.
-	@PostMapping(value = "/pubilic/players/{id}/games/")
+	@PostMapping(value = "/players/{id}/games/")
 	public String jugar(@PathVariable("id") Integer id) {
 			Partida partida = service.jugar(service.findById(id));
 			service.guardarPartida(partida, service.findById(id));
@@ -96,21 +93,21 @@ public class DadosController {
 	}
 
 	// DELETE /players/{id}/games: elimina les tirades del jugador/a.
-	@DeleteMapping(value = "/pubilic/players/delete/{id}")
+	@DeleteMapping(value = "/players/delete/{id}")
 	public String delete(@PathVariable("id") Integer id) {
-		ResponseEntity<?> respuesta = null;
+		String respuesta;
 		try {
 			service.deletePartidasUser(id);
-			respuesta = new ResponseEntity<String>(service.findById(id).toString() + " deleted", HttpStatus.OK);
+			respuesta="redirect:/players";
 		} catch (Exception e) {
-			respuesta = new ResponseEntity<String>(e.getCause().toString(), HttpStatus.INTERNAL_SERVER_ERROR);
+			respuesta= "error";
 		}
-		return "redirect:/add";
+		return respuesta;
 	}
 
 	// GET /players/: retorna el llistat de tots els jugadors/es del sistema amb el
 	// seu percentatge mitjà d’èxits.
-	@GetMapping("/players")
+	@GetMapping("/players/getAll")
 	public String getJugadorsRanq(Model model) {
 		model.addAttribute("jugadores", service.jugadores());
 		model.addAttribute("partidas", service.listaJugadas());

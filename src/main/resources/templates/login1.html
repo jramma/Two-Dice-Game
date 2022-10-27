@@ -12,14 +12,14 @@
  		<h1 class="mx-auto"  style="width: 600px;" >Darse de alta:</h1>
  	<br>	
 	 <div class="mx-auto" style="width: 400px;">
-		 <form th:action="@{/usuaris}" th:object="${usuario}" method= "POST">
+		 <form th:action="@{/players}" th:object="${usuario}" method= "POST">
 		  <div class="mb-3">
-		    <label for="exampleInputEmail1" class="form-label">Nombre:</label>
+		    <label >Nombre:</label>
 		    <input type="text" name="nombre" th:field="*{nombre}" class="form-control" placeholder= "Escribe el nombre... ">
 		    <div id="emailHelp" class="form-text">Debes usar un nombre que no este en uso.</div>
 		  </div>
 		  <div class="mb-3">
-		    <label for="exampleInputPassword1" class="form-label">Password:</label>
+		    <label>Password:</label>
 		    <input type="password" name="nombre" th:field="*{password}" class="form-control" placeholder= "Escribe la contraseña... ">
 		  </div>
 		  
