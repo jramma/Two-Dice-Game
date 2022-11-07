@@ -23,7 +23,7 @@ public class DadosController {
 	private UserService service;
 
 //	POST: /players/add: crea un jugador/a. 
-// http://localhost:9000/players/add
+// http://localhost:9001/players/add
 
 	@GetMapping({ "/players/add" })
 	public String addUsuario(Model model) {
@@ -70,7 +70,7 @@ public class DadosController {
 
 	// PUT /players: modifica el nom del jugador/a.
 
-	// http://localhost:9000/players/update/1
+	// http://localhost:9001/players/update/1
 	@GetMapping("/players/update/{id}")
 	public String updateUser(@PathVariable Integer id, Model model) {
 		model.addAttribute("usuario", service.findById(id));
@@ -110,27 +110,20 @@ public class DadosController {
 
 	// POST /players/{id}/games/ : un jugador/a específic realitza una tirada dels
 	// daus.
-	// http://localhost:9000/players/1/games/
+	// http://localhost:9001/players/1/games/
+	@PostMapping
 	@GetMapping("/players/{id}/games/")
 	public String jugar(@PathVariable Integer id, Model model) {
-		Partida partida = service.jugar(service.findById(id));
-
+		Partida partida = service.jugar(id);
+		
 		model.addAttribute("partida", partida);
+		service.guardarPartida(partida, service.findById(id));
 
 		return "juego";
 	}
 
-	@PostMapping("/guardar")
-	public String guardarJuego(@PathVariable int id, @ModelAttribute("usuario") Partida partida, Model model) {
-		Usuario usuario = buscarJugador(partida.getUsuario());
-		usuario.getPartidas().add(partida);
-		service.guardarPartida(partida, service.findById(id));
-		int i = usuario.getId_usuari();
 
-		return "redirect:/players/cuenta/" + i;
-	}
-
-	// http://localhost:9000/players/delete/3
+	// http://localhost:9001/players/delete/3
 	@GetMapping("/players/delete/{id}")
 	public String delete(@PathVariable Integer id) {
 

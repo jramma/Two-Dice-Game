@@ -28,8 +28,8 @@ public class ImplementsUService implements UserService {
 	}
 
 	@Override
-	public Partida jugar(Usuario usuario) {
-		return new Partida(usuario.getNombre(), (int) (Math.random() * 6), (int) (Math.random() * 6));
+	public Partida jugar(int id) {
+		return new Partida(id, (int) (Math.random() * 6), (int) (Math.random() * 6));
 	}
 
 	@Override

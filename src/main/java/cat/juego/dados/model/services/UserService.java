@@ -16,7 +16,7 @@ public interface UserService {
 //	PUT /players: modifica el nom del jugador/a.
 
 //	POST /players/{id}/games/ : un jugador/a específic realitza una tirada dels daus.  
-	public Partida jugar(Usuario usuasrio);
+	public Partida jugar(int id);
 	public void guardarPartida(Partida partida, Usuario usuario);
 //	DELETE /players/{id}/games: elimina les tirades del jugador/a.
 	public void deletePartidasUser(Integer id);

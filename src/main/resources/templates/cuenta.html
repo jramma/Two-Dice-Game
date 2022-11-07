@@ -26,15 +26,15 @@
 		<thead>
 			<tr>
 
-				<th>Nombre</th>
-				<th>Fecha de alta</th>
+				<th class="text">Nombre</th>
+				<th class="text">Fecha de alta</th>
 
 			</tr>
 		</thead>
 		<tbody>
-			<tr th:each="jugador:${jugador}">
-				<td th:text="${jugador.nombre}">1</td>
-				<td th:text="${jugador.date}">2</td>
+			<tr class="text" th:each="jugador:${jugador}">
+				<td class="text" th:text="${jugador.nombre}">1</td>
+				<td class="text" th:text="${jugador.date}">2</td>
 
 
 			</tr>
@@ -52,16 +52,16 @@
 
 		<thead>
 			<tr>
-				<th scope="col">Dado1</th>
-				<th scope="col">Dado2</th>
-				<th scope="col">Resultado</th>
+				<th class="text" scope="col">Dado1</th>
+				<th class="text" scope="col">Dado2</th>
+				<th class="text" scope="col">Resultado</th>
 			</tr>
 		</thead>
 		<tbody>
-			<tr th:each="jugadas:${jugadas}">
-				<td th:text="${jugadas.dado1}">1</td>
-				<td th:text="${jugadas.dado2}">2</td>
-				<td th:text="${jugadas.resultado}">resultado</td>
+			<tr class="text" th:each="jugadas:${jugadas}">
+				<td class="text" th:text="${jugadas.dado1}">1</td>
+				<td class="text" th:text="${jugadas.dado2}">2</td>
+				<td class="text" th:text="${jugadas.resultado}">resultado</td>
 			</tr>
 		</tbody>
 	</table>

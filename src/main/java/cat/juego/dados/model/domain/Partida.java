@@ -32,7 +32,7 @@ public class Partida implements Serializable{
 	private int idPartida;
 	
 	@Column(name = "usuario", nullable = false)	
-	private String usuario;
+	private int id_usuari;
 	
 	@Column(name = "dado1", nullable = false)	
 	private int dado1;
@@ -44,9 +44,9 @@ public class Partida implements Serializable{
 	private String resultado;
 	
 	
-	public Partida(String usuario, int dado1, int dado2) {
+	public Partida(int id_usuari, int dado1, int dado2) {
 		String resultado1;
-		this.usuario = usuario;
+		this.id_usuari = id_usuari;
 		this.dado1 = dado1;
 		this.dado2 = dado2;
 		if(dado1+dado2==7) {
@@ -63,7 +63,7 @@ public class Partida implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Partida [usuario=" + usuario + ", dado1=" + dado1 + ", dado2=" + dado2 + ", resultado=" + resultado
+		return "Partida [usuario=" + id_usuari + ", dado1=" + dado1 + ", dado2=" + dado2 + ", resultado=" + resultado
 				+ "]";
 	}
 	

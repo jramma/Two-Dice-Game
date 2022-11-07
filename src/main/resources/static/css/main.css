@@ -23,9 +23,7 @@ a.titulo {
 	color: rgb(218, 218, 218);
 }
 
-.contenido {
-	text-align: center;
-}
+
 
 div.btn {
 	text-align: center;
@@ -66,5 +64,8 @@ p.sub {
 .tabla{
 	background-color: #1a1b28;
 	text-align: center;
-	margin-right: 0;
+	margin: auto;
+}
+.text{
+	padding: 0.5em;
 }

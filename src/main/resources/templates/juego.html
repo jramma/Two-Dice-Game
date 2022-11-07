@@ -9,11 +9,11 @@
 
 </head>
 <body>
-	<nav class="navbar navbar-expand-lg bg-light">
+	<nav class="nav">
 		<div class="container-fluid">
-			<a class="navbar-brand" href="/players/cuenta/{id}">Cuenta</a> <a
+			<a class="log" href="/players/cuenta/{id}">Cuenta</a> <a class="log"
 				th:href="@{/players/{id}/games/(id=${idJugador}}"> Jugar </a> <a
-				class="nav-link" href="/players/ranking">Ver Partidas y Ranquing
+				class="log" href="/players/ranking">Ver Partidas y Ranquing
 				total</a>
 		</div>
 	</nav>
@@ -21,24 +21,20 @@
 	<h1 class="mx-auto" style="width: 600px;">Juego:</h1>
 	<br>
 
-	<table th:action="@{/guardar}" th:object="${partida}" method="POST"
-		class="table table-success table-striped mx-auto"
-		style="width: 900px;">
-		.
+	<table th:object="${partida}" class="tabla">
+
 		<thead>
 			<tr>
-				<th>Jugador</th>
-				<th scope="col">Dado1</th>
-				<th scope="col">Dado2</th>
-				<th scope="col">Resultado</th>
+				<th class="text">Dado1</th>
+				<th class="text">Dado2</th>
+				<th class="text">Resultado</th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr th:each="partida:${partida}">
-				<td th:text="${partida.usuario}">nombre</td>
-				<td th:text="${partida.dado1}">1</td>
-				<td th:text="${partida.dado2}">2</td>
-				<td th:text="${partida.resultado}">resultado</td>
+				<td class="text" th:text="${partida.dado1}">1</td>
+				<td class="text" th:text="${partida.dado2}">2</td>
+				<td class="text" th:text="${partida.resultado}">resultado</td>
 			</tr>
 		</tbody>
 	</table>

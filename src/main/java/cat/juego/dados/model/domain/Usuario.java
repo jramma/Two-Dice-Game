@@ -37,7 +37,7 @@ public class Usuario  {
 	@Column(name = "ranquing", nullable = false)
 	private double ranquing;
 	
-
+	
 	private ArrayList <Partida> partidas;
 	private String date;
 	
@@ -45,7 +45,6 @@ public class Usuario  {
 		DateFormat dateFormat = new SimpleDateFormat("EEE, MMM d, yyyy '@' HH:mm:ss");
 		this.date = dateFormat.format(Calendar.getInstance().getTime());
 		this.ranquing = caluleteRanquing();
-		this.partidas = new ArrayList<>();
 
 	}
 	
@@ -54,7 +53,6 @@ public class Usuario  {
 		this.nombre = nombre;
 		this.password = password;
 		this.ranquing = caluleteRanquing();
-		this.partidas = new ArrayList<>();
 		this.date = dateFormat.format(Calendar.getInstance().getTime());
 	}
 
