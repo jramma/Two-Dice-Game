@@ -19,8 +19,8 @@ public class Application implements CommandLineRunner{
 	private UserService service;
 	@Override
 	public void run(String... args) throws Exception {
-//		Usuario usuario = new Usuario("Juan","1234");
-//		service.saveUser(usuario);
+		//Usuario usuario = new Usuario("Juan","1234");
+		//service.saveUser(usuario);
 	}
 
 }

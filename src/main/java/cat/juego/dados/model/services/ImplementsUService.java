@@ -27,25 +27,6 @@ public class ImplementsUService implements UserService {
 
 	}
 
-//	private String buscarUsuario(Usuario usuario) {
-//		ArrayList<Usuario> todos = (ArrayList<Usuario>) usuarios.findAll();
-//		int i = 0;
-//		String nom = null;
-//		boolean encontrado = false;
-//		while (i < todos.size() && !encontrado) {
-//			if (todos.get(i).getNombre().equals(usuario.getNombre())) {
-//				System.out.println("El nombre ya existe");
-//				encontrado = true;
-//				nom = "ANONIM";
-//			}
-//		}
-//		if (!encontrado) {
-//			nom = usuario.getNombre();
-//		}
-//		return nom;
-//
-//	}
-
 	@Override
 	public Partida jugar(Usuario usuario) {
 		return new Partida(usuario.getNombre(), (int) (Math.random() * 6), (int) (Math.random() * 6));
@@ -57,15 +38,10 @@ public class ImplementsUService implements UserService {
 		partidas.save(partida);
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
-	public Usuario deletePartidasUser(Integer id) {
-		Usuario usuario = usuarios.getById(id);
-		for (int i = 0; usuario.getPartidas().size() > i; i++) {
-			partidas.delete(usuario.getPartidas().get(i));
-		}
-		usuario.setPartidas(null);
-		return usuario;
+	public void deletePartidasUser(Integer id) {
+
+		usuarios.deleteById(id);
 	}
 
 	@Override
@@ -74,7 +50,7 @@ public class ImplementsUService implements UserService {
 	}
 
 	@Override
-	public ArrayList<Partida> listaJugadas(Usuario usuario) {
+	public List<Partida> listaJugadas(Usuario usuario) {
 		return usuario.getPartidas();
 	}
 

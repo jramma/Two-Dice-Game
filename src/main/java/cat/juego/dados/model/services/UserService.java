@@ -1,6 +1,5 @@
 package cat.juego.dados.model.services;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -20,13 +19,13 @@ public interface UserService {
 	public Partida jugar(Usuario usuasrio);
 	public void guardarPartida(Partida partida, Usuario usuario);
 //	DELETE /players/{id}/games: elimina les tirades del jugador/a.
-	public Usuario deletePartidasUser(Integer id);
+	public void deletePartidasUser(Integer id);
 
 //	GET /players/: retorna el llistat de tots  els jugadors/es del sistema amb el seu  percentatge mitjà d’èxits. 
 	public List<Usuario> jugadores();
 
 //	GET /players/{id}/games: retorna el llistat de jugades per un jugador/a.  
-	public ArrayList<Partida> listaJugadas(Usuario usuario);
+	public List<Partida> listaJugadas(Usuario usuario);
 
 //	GET /players/ranking: retorna el ranking mig de tots els jugadors/es del sistema. És a dir, el  percentatge mitjà d’èxits. 
 	public double ranquingTotal();
@@ -36,6 +35,9 @@ public interface UserService {
 //	GET /players/ranking/winner: retorna el  jugador amb pitjor percentatge d’èxit. 
 	public Usuario mejorUsuario();
 
+	
+	
+	
 	public List<Partida> listaJugadas();
 	
 	public Usuario findById(int id);
