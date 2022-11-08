@@ -36,19 +36,25 @@ public class DadosController {
 		model.addAttribute("usuario", usuario);
 		return "login1";
 	}
+	@GetMapping({ "/players/add1" })
+	public String addUsuario1(Model model) {
+		Usuario usuario = new Usuario();
+		model.addAttribute("usuario", usuario);
+		return "login";
+	}
 
 	@PostMapping("/players")
 	public String saveUser(@ModelAttribute("usuario") Usuario usuario) {
 		String respuesta;
 		Usuario usuario1 = buscarUsuario(usuario.getNombre());
 		if (usuario1 != null) {
-			respuesta = "redirect:/players/add";
+			respuesta = "redirect:/players/add1";
 		} else {
 			try {
 				service.saveUser(usuario);
 				respuesta = "redirect:/players/getAll";
 			} catch (Exception e) {
-				respuesta = "redirect:/players/add";
+				respuesta = "redirect:/players/add1";
 			}
 		}
 
@@ -144,7 +150,6 @@ public class DadosController {
 	public String getJugadorsRanq(Model model) {
 		model.addAttribute("jugadores", service.jugadores());
 
-		model.addAttribute("partidas", service.listaJugadas());
 		return "stats"; // te devueve el html
 	}
 

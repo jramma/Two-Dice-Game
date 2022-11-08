@@ -109,7 +109,7 @@ public class ImplementsUService implements UserService {
 
 	@Override
 	public Usuario findById(int id) {
-		return usuarios.findById(id).get();
+		return (Usuario) usuarios.findById(id).get();
 	}
 
 	@Override

@@ -18,26 +18,24 @@
 				total</a>
 		</div>
 	</nav>
-	<table class="table table-success table-striped mx-auto"
-		style="width: 900px">
+	<br>
+	<table class="tabla">
 		
 		<thead>
 			<tr>
-				<th scope="col">Jugador</th>
-				<th scope="col">Ranquing de acierto</th>
+				<th class="text">Jugador</th>
+				<th class="text">Ranquing de acierto</th>
 			</tr>
 		</thead>
 		<tbody>
-			<tr th:each="jugadores:${jugadores}">
-				<td th:text="${jugadores.nombre}">Nom</td>
-				<td th:text="${jugadores.ranquing}">ranquing</td>
+			<tr class="text" th:each="jugadores:${jugadores}">
+				<td class="text" th:text="${jugadores.nombre}">Nom</td>
+				<td class="text" th:text="${jugadores.ranquing}">ranquing</td>
 			</tr>
 		</tbody>
-		</tbody>
+		
 	</table>
 	<br>
-	<h2 th:each="ranquingAbsoluto:${ranquingAbsoluto}">
-		ranquingAbsoluto
-		</h2th:each="usuaris:${usuaris}">
+	
 </body>
 </html>
