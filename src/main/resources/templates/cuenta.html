@@ -12,7 +12,7 @@
 	<nav class="nav">
 		<div>
 			<a class="log" href="/players/ranking">Ranquings</a> <a class="log"
-				th:href="@{/players/{id}/games/(id=${jugador.id_usuari})}">
+				th:href="@{/players/{id}/games/(id=${jugador.id_usuario})}">
 				Jugar </a>
 		</div>
 	</nav>
@@ -20,51 +20,51 @@
 	<h1>Perfil:</h1>
 	<br>
 	<!-- On tables -->
-	<div class= "contenido"> 
-	<table class="tabla">
+	<div class="contenido">
+		<table class="tabla">
 
-		<thead>
-			<tr>
+			<thead>
+				<tr>
 
-				<th class="text">Nombre</th>
-				<th class="text">Fecha de alta</th>
+					<th class="text">Nombre</th>
+					<th class="text">Fecha de alta</th>
 
-			</tr>
-		</thead>
-		<tbody>
-			<tr class="text" th:each="jugador:${jugador}">
-				<td class="text" th:text="${jugador.nombre}">1</td>
-				<td class="text" th:text="${jugador.date}">2</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class="text" th:each="jugador:${jugador}">
+					<td class="text" th:text="${jugador.nombre}">1</td>
+					<td class="text" th:text="${jugador.date}">2</td>
 
 
-			</tr>
-		</tbody>
-	</table>
-	<div>
-		<button type="submit" class="btn btn-warning"
-			href="/players/update/{id}"
-			th:href="@{/players/{id}/games/(id=${jugador.id_usuari})}">Cambiar
-			nombre</button>
+				</tr>
+			</tbody>
+		</table>
+		<div>
+			<br> <a class="log"
+				href=" http://localhost:9001/players/update/{id}"
+				th:href="@{/players/{id}/games/(id=${jugador.id_usuario})}">Cambiar
+				nombre</a>
+		</div>
+		<br>
+		<h2>Partidas:</h2>
+		<table class="tabla">
+
+			<thead>
+				<tr>
+					<th class="text" scope="col">Dado1</th>
+					<th class="text" scope="col">Dado2</th>
+					<th class="text" scope="col">Resultado</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class="text" th:each="jugadas:${jugadas}">
+					<td class="text" th:text="${jugadas.dado1}">1</td>
+					<td class="text" th:text="${jugadas.dado2}">2</td>
+					<td class="text" th:text="${jugadas.resultado}">resultado</td>
+				</tr>
+			</tbody>
+		</table>
 	</div>
-	<br>
-	<h2>Partidas:</h2>
-	<table class="tabla">
-
-		<thead>
-			<tr>
-				<th class="text" scope="col">Dado1</th>
-				<th class="text" scope="col">Dado2</th>
-				<th class="text" scope="col">Resultado</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr class="text" th:each="jugadas:${jugadas}">
-				<td class="text" th:text="${jugadas.dado1}">1</td>
-				<td class="text" th:text="${jugadas.dado2}">2</td>
-				<td class="text" th:text="${jugadas.resultado}">resultado</td>
-			</tr>
-		</tbody>
-	</table>
-</div>
 </body>
 </html>

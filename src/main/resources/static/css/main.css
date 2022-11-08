@@ -29,7 +29,7 @@ div.btn {
 	text-align: center;
 }
 
-a.log {
+.log {
 	border: 2px;
 	background-color: #4cb200;
 	padding: 0.6em;
@@ -40,7 +40,7 @@ a.log {
 	color: white;
 }
 
-a.log:hover {
+.log:hover {
 	padding: 0.7em;
 }
 
@@ -68,4 +68,11 @@ p.sub {
 }
 .text{
 	padding: 0.5em;
+}
+button.log{
+	padding: 0.7em;
+	font-size: 0.9em;
+}
+button.log:hover{
+	padding:0.9em;
 }

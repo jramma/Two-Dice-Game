@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import cat.juego.dados.model.domain.Partida;
+import cat.juego.dados.model.domain.UserHasPartida;
 import cat.juego.dados.model.domain.Usuario;
 import cat.juego.dados.model.repository.PartidaRepository;
 import cat.juego.dados.model.repository.UserRepository;
@@ -22,26 +23,27 @@ public class ImplementsUService implements UserService {
 
 	@Override
 	public Usuario saveUser(Usuario usuario) {
-		// String nombre = buscarUsuario(usuario);
 		return usuarios.save(usuario);
 
 	}
 
 	@Override
-	public Partida jugar(int id) {
-		return new Partida(id, (int) (Math.random() * 6), (int) (Math.random() * 6));
-	}
+	public UserHasPartida jugar(Usuario usuario) {
 
-	@Override
-	public void guardarPartida(Partida partida, Usuario usuario) {
-		usuario.getPartidas().add(partida);
+		Partida partida = new Partida(usuario, (int) (Math.random() * 6), (int) (Math.random() * 6));
 		partidas.save(partida);
+		usuario.getPartidas().add(partida);
+		UserHasPartida userHasPartida = new UserHasPartida(usuario, partida);
+
+		return userHasPartida;
 	}
 
 	@Override
 	public void deletePartidasUser(Integer id) {
+		List<Partida> partidas = new ArrayList<>();
+		partidas.removeAll(partidas);
+		usuarios.findById(id).get().setPartidas(partidas);
 
-		usuarios.deleteById(id);
 	}
 
 	@Override
@@ -51,25 +53,24 @@ public class ImplementsUService implements UserService {
 
 	@Override
 	public List<Partida> listaJugadas(Usuario usuario) {
+		
 		return usuario.getPartidas();
 	}
 
 	@Override
 	public double ranquingTotal() {
-		ArrayList<Integer> victorias = null;
-		ArrayList<Integer> derrotas = null;
+		int victorias = 0, derrotas = 0;
 		double media = 0;
-		for (int i = 0; i < usuarios.findAll().size(); i++) {
-			for (int j = 0; j < usuarios.findAll().get(i).getPartidas().size(); j++) {
-				if (usuarios.findAll().get(i).getPartidas().get(j).getResultado().equalsIgnoreCase("victory")) {
-					victorias.add(1);
+		for (int i = 0; i < partidas.findAll().size(); i++) {
+				if (partidas.findAll().get(i).getResultado().equalsIgnoreCase("victory")) {
+					victorias++;
 				} else {
-					derrotas.add(1);
+					derrotas++;
 				}
-			}
+			
 		}
 
-		media = victorias.size() / victorias.size() + derrotas.size();
+		media = victorias / (victorias + derrotas);
 		return media;
 
 	}
@@ -106,10 +107,9 @@ public class ImplementsUService implements UserService {
 
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	public Usuario findById(int id) {
-		return usuarios.getById(id);
+		return usuarios.findById(id).get();
 	}
 
 	@Override
@@ -117,7 +117,7 @@ public class ImplementsUService implements UserService {
 		int victorias = 0;
 
 		for (int i = 0; i < partidas.findAll().size(); i++) {
-			if (partidas.getById(i).getResultado().equals("victory")) {
+			if (partidas.findById(i).get().getResultado().equals("victory")) {
 				victorias++;
 			}
 		}

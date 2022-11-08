@@ -8,7 +8,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
 import cat.juego.dados.model.domain.Partida;
+import cat.juego.dados.model.domain.UserHasPartida;
 import cat.juego.dados.model.domain.Usuario;
+import cat.juego.dados.model.repository.PartidaRepository;
 import cat.juego.dados.model.services.UserService;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +23,9 @@ public class DadosController {
 
 	@Autowired
 	private UserService service;
+	
+	@Autowired
+	private PartidaRepository partidas;
 
 //	POST: /players/add: crea un jugador/a. 
 // http://localhost:9001/players/add
@@ -73,8 +78,14 @@ public class DadosController {
 	// http://localhost:9001/players/update/1
 	@GetMapping("/players/update/{id}")
 	public String updateUser(@PathVariable Integer id, Model model) {
-		model.addAttribute("usuario", service.findById(id));
-		return "update";
+		String respuesta;
+		if (id == 1) {
+			respuesta = "cuenta";
+		} else {
+			respuesta = "update";
+			model.addAttribute("usuario", service.findById(id));
+		}
+		return respuesta;
 	}
 
 	@PostMapping("/updating/{id}")
@@ -82,10 +93,10 @@ public class DadosController {
 		String respuesta;
 		int repeticiones = buscarQueNoSeRepitaDosVeces(usuario.getNombre());
 		if (repeticiones < 2) {
-			Usuario usuarioExiste = service.findById(usuario.getId_usuari());
+			Usuario usuarioExiste = service.findById(usuario.getId_usuario());
 			usuarioExiste.setNombre(usuario.getNombre());
 			service.saveUser(usuarioExiste);
-			respuesta = "redirect:/players/getAll";
+			respuesta = "redirect:/players/cuenta/{id}";
 		} else {
 			respuesta = "redirect:/players/update/{id}";
 		}
@@ -111,17 +122,12 @@ public class DadosController {
 	// POST /players/{id}/games/ : un jugador/a específic realitza una tirada dels
 	// daus.
 	// http://localhost:9001/players/1/games/
-	@PostMapping
 	@GetMapping("/players/{id}/games/")
 	public String jugar(@PathVariable Integer id, Model model) {
-		Partida partida = service.jugar(id);
-		
-		model.addAttribute("partida", partida);
-		service.guardarPartida(partida, service.findById(id));
-
+		UserHasPartida userHasPartida = service.jugar(service.findById(id));
+		model.addAttribute("partida", userHasPartida.getPartida());
 		return "juego";
 	}
-
 
 	// http://localhost:9001/players/delete/3
 	@GetMapping("/players/delete/{id}")
@@ -149,12 +155,12 @@ public class DadosController {
 		Usuario usuario = service.findById(id);
 		model.addAttribute("jugador", usuario);
 		model.addAttribute("jugadas", service.listaJugadas(usuario));
-		return "cuenta"; // te devueve el html
+		return "cuenta";
 	}
 
 	// GET /players/ranking: retorna el ranking mig de tots els jugadors/es del
 	// sistema. És a dir, el percentatge mitjà d’èxits.
-	// http://localhost:9000/players/ranking
+	// http://localhost:9001/players/ranking
 	@GetMapping("/players/ranking")
 	public String getJugadoresRanq(Model model) {
 
@@ -164,7 +170,7 @@ public class DadosController {
 			ranquingAbsoluto = service.victoriasTotales() / service.listaJugadas().size();
 		}
 
-		model.addAttribute("partidas", service.listaJugadas());
+		model.addAttribute("partidas", partidas.findAll());
 		model.addAttribute("ranquingAbsoluto", String.valueOf(ranquingAbsoluto));
 		return "ranquings"; // te devueve el html
 	}
@@ -187,20 +193,5 @@ public class DadosController {
 		return "stats"; // te devueve el html
 	}
 
-	private Usuario buscarJugador(String nombre) {
-		List<Usuario> usuarios = service.jugadores();
-		Usuario usuario = null;
-		int i = 0;
-		boolean encontrado = false;
-		while (i < usuarios.size() && !encontrado) {
-			if (usuarios.get(i).getNombre().equals(nombre)) {
-				usuario = usuarios.get(i);
 
-				encontrado = true;
-			}
-			i++;
-		}
-
-		return usuario;
-	}
 }

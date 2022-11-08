@@ -1,5 +1,7 @@
 package cat.juego.dados.model.domain;
 
-public class PorcentajeDeExitoDto {
-
+public class RolUser {
+	
+	
+	
 }

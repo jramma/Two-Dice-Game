@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import lombok.Getter;
@@ -29,10 +31,11 @@ public class Partida implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int idPartida;
+	private int id_partida;
 	
-	@Column(name = "usuario", nullable = false)	
-	private int id_usuari;
+	@OneToOne
+	@JoinColumn(name="id_usuario")
+	private Usuario usuario;
 	
 	@Column(name = "dado1", nullable = false)	
 	private int dado1;
@@ -44,9 +47,9 @@ public class Partida implements Serializable{
 	private String resultado;
 	
 	
-	public Partida(int id_usuari, int dado1, int dado2) {
+	public Partida(Usuario usuario, int dado1, int dado2) {
 		String resultado1;
-		this.id_usuari = id_usuari;
+		this.usuario = usuario;
 		this.dado1 = dado1;
 		this.dado2 = dado2;
 		if(dado1+dado2==7) {
@@ -63,7 +66,7 @@ public class Partida implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Partida [usuario=" + id_usuari + ", dado1=" + dado1 + ", dado2=" + dado2 + ", resultado=" + resultado
+		return "Partida [usuario=" + usuario + ", dado1=" + dado1 + ", dado2=" + dado2 + ", resultado=" + resultado
 				+ "]";
 	}
 	
