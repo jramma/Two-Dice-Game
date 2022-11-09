@@ -3,19 +3,23 @@ package cat.juego.dados.model.domain;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-
+@NoArgsConstructor
 @Getter
 @Setter
 @Entity
@@ -31,11 +35,14 @@ public class Partida implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id_partida;
+	private int id;
 	
-	@OneToOne
-	@JoinColumn(name="id_usuario")
-	private Usuario usuario;
+	@ManyToOne(fetch= FetchType.EAGER,cascade=CascadeType.ALL)
+	@JoinTable(name="Partida_has_User",
+	joinColumns = @JoinColumn(name="partida", referencedColumnName = "id"),
+	inverseJoinColumns = @JoinColumn(name="usuario", referencedColumnName = "id")		
+			)
+	private Usuario usuario_id;
 	
 	@Column(name = "dado1", nullable = false)	
 	private int dado1;
@@ -47,9 +54,8 @@ public class Partida implements Serializable{
 	private String resultado;
 	
 	
-	public Partida(Usuario usuario, int dado1, int dado2) {
+	public Partida(int dado1, int dado2) {
 		String resultado1;
-		this.usuario = usuario;
 		this.dado1 = dado1;
 		this.dado2 = dado2;
 		if(dado1+dado2==7) {
@@ -60,15 +66,9 @@ public class Partida implements Serializable{
 		this.resultado = resultado1;
 	}
 	
-	public Partida() {
-	}
+	
 
 
-	@Override
-	public String toString() {
-		return "Partida [usuario=" + usuario + ", dado1=" + dado1 + ", dado2=" + dado2 + ", resultado=" + resultado
-				+ "]";
-	}
 	
 	
 	
