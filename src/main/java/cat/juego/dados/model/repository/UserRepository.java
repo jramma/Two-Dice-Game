@@ -8,4 +8,5 @@ import cat.juego.dados.model.domain.Usuario;
 @Repository
 public interface UserRepository extends JpaRepository <Usuario, Integer> {
 
+	public Usuario findByNombre(String nombre);
 }

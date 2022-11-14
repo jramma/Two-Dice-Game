@@ -76,3 +76,7 @@ button.log{
 button.log:hover{
 	padding:0.9em;
 }
+.ini{
+	color: #4cb200;
+	text-decoration: underline;
+}

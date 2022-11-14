@@ -36,7 +36,7 @@ public class DadosController {
 	public String registrarUsuario(@ModelAttribute("usuario") UsuarioRegistroDto registroDto) {
 
 		service.saveUser(registroDto);
-		return "redirect:/login?exito";
+		return "redirect:/players?exito";
 
 	}
 
