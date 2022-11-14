@@ -21,7 +21,7 @@ public class DadosController {
 	private UserService service;
 
 //	POST: /players/add: crea un jugador/a. 
-// http://localhost:9001/players/add
+// http://localhost:9001/players
 	@ModelAttribute("usuario")
 	public UsuarioRegistroDto usuarioNuevoDto() {
 		return new UsuarioRegistroDto();

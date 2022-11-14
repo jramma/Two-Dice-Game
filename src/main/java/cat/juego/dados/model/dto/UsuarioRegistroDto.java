@@ -25,6 +25,23 @@ public class UsuarioRegistroDto {
 	private List<Partida> partidas = new ArrayList<>();
 
 	private String date;
-	
-	
+
+	public UsuarioRegistroDto(String nombre, String password, String date) {
+		this.nombre = nombre;
+		this.password = password;
+		this.ranquing = 0;
+		this.partidas = new ArrayList<>();
+		this.date = date;
+	}
+
+	public UsuarioRegistroDto(String nombre, String password) {
+		this.nombre = nombre;
+		this.password = password;
+		// no hay valores para el resto
+	}
+
+	public UsuarioRegistroDto(String nombre) {
+		this.nombre = nombre;
+	}
+
 }

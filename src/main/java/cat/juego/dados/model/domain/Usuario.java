@@ -46,13 +46,7 @@ public class Usuario {
 	@Column(name = "ranquing", nullable = false)
 	private double ranquing;
 	
-	@OneToMany(fetch= FetchType.EAGER,cascade=CascadeType.ALL)
-	@JoinTable(
-			name ="user_has_partida",
-			joinColumns=@JoinColumn(name="usuario_id", referencedColumnName = "id"),
-			inverseJoinColumns = @JoinColumn(name="partida_id",referencedColumnName = "id")
-			)	
-	private List<Partida> partida_id= new ArrayList<>();
+	private ArrayList<Partida> partida_id= new ArrayList<>();
 	
 	@Column(name = "date")
 	private String date;
@@ -89,9 +83,8 @@ public class Usuario {
 		return media;
 	}
 
-	public Usuario(String nombre, String password, double ranquing, List<Partida> partidas, String date,
+	public Usuario(String nombre, String password, double ranquing, ArrayList<Partida> partidas, String date,
 			Collection<Rol> roles) {
-		super();
 		this.nombre = nombre;
 		this.password = password;
 		this.ranquing = ranquing;

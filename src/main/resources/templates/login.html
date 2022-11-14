@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html xmlns:th="https://www.thymeLeaf.org">
+<html lang="es" xmlns:th="https://www.thymeLeaf.org">
 <head>
 <meta charset="utf-8">
 <title>Login</title>
@@ -8,9 +8,19 @@
 
 </head>
 <body>
+	<nav class="nav">
+		<div>
+			<h1>
+				<a>Darse de alta:</a>
+			</h1>
+		</div>
+
+	</nav>
 	<div class="contenido">
 		<br>
-		<h1 class="titulo">Darse de alta:</h1>
+		<div th:if=${param.exito}>
+			<div class="exito">Se ha registrado exitosamente</div>
+		</div>
 		<br>
 		<div class="contenido">
 			<form th:action="@{/players}" th:object="${usuario}" method="POST">
@@ -18,17 +28,19 @@
 					<label>Nombre:</label> <input type="text" name="nombre"
 						th:field="*{nombre}" class="form-control"
 						placeholder="Escribe el nombre... ">
-					<div class="info">Debes usar un nombre que
-						no este en uso.</div>
+					<div class="info">Debes usar un nombre que no este en uso.</div>
 				</div>
 				<div class="mb-3">
-					<label>Password:</label> <input type="password" name="nombre"
+					<label>Contraseña:</label> <input type="password" name="nombre"
 						th:field="*{password}" class="form-control"
 						placeholder="Escribe la contraseña... ">
 				</div>
-				<br> 
-				<a class="log" href="http://localhost:9001/players/cuenta/1"> Jugar como anónimo</a>
-				<button type="submit" class="log">Login</button>
+				<br> <a class="log"
+					href="http://localhost:9001/players/cuenta/1"> Jugar como
+					anónimo</a>
+				<button type="submit" class="log">Registrarse</button>
+				<br> <span>Si ya estás registrado <a href="#">inicia
+						sesión aquí.</a></span>
 			</form>
 		</div>
 	</div>
