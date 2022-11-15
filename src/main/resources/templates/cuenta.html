@@ -11,17 +11,19 @@
 <body>
 	<nav class="nav">
 		<div>
-			<a class="log" href="/players/ranking">Ranquings</a> <a class="log"
-				th:href="@{/players/{id}/games/(id=${jugador.id_usuario})}">
-				Jugar </a>
+			<a sec:authorize="isAuthenticated()" class="log"
+				href="/players/ranking">Ranquings</a> <a
+				sec:authorize="isAuthenticated()" class="log"> Jugar </a> <a
+				sec:authorize="isAuthenticated()" class="log" th:href="@{/logout}">Logout</a>
 		</div>
 	</nav>
 	<br>
-	<h1>Perfil:</h1>
+	<h1>Hola!</h1>
 	<br>
 	<!-- On tables -->
 	<div class="contenido">
-		<table class="tabla">
+		<span sec:authentication="principal.username"></span>
+		<!-- <table class="tabla">
 
 			<thead>
 				<tr>
@@ -64,7 +66,7 @@
 					<td class="text" th:text="${jugadas.resultado}">resultado</td>
 				</tr>
 			</tbody>
-		</table>
+		</table> -->
 	</div>
 </body>
 </html>

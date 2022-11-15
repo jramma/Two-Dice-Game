@@ -1,10 +1,10 @@
 package cat.juego.dados.controllers;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 
+import cat.juego.dados.model.domain.Usuario;
 import cat.juego.dados.model.dto.UsuarioRegistroDto;
 import cat.juego.dados.model.services.UserService;
 
@@ -34,10 +34,22 @@ public class DadosController {
 
 	@PostMapping
 	public String registrarUsuario(@ModelAttribute("usuario") UsuarioRegistroDto registroDto) {
-
-		service.saveUser(registroDto);
-		return "redirect:/players?exito";
+		String respuesta;
+		if (service.yaExiste(registroDto.getNombre()) == null) {
+			service.saveUser(registroDto);
+			respuesta = "redirect:/players?exito";
+		} else {
+			respuesta = "redirect:/players?error";
+		}
+		return respuesta;
 
 	}
+	//----------------------------------------------------------------------------------------------
+	@PreAuthorize("hasRole('ROLE_USER')")
+	@GetMapping("/create")
+	public String abrirSesion(@ModelAttribute("usuario") Usuario usuario) {
+	
+	return "cuenta";
 
+	}
 }

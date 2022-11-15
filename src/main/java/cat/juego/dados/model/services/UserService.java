@@ -10,6 +10,6 @@ import cat.juego.dados.model.dto.UsuarioRegistroDto;
 @Service
 public interface UserService extends UserDetailsService {
 	public Usuario saveUser(UsuarioRegistroDto registroDto);
-	
+	public Usuario yaExiste(String username);
 
 }

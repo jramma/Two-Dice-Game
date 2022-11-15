@@ -52,7 +52,16 @@ public class ImplementsUService implements UserService {
 		}
 		return new User(usuario.getNombre(), usuario.getPassword(), authMappingRol(usuario.getRoles()));
 	}
-
+	public Usuario yaExiste(String username) {
+		
+		Usuario usuario=null;
+		try {
+			usuario = usuarios.findByNombre(username);
+		} catch (Exception e) {		
+			e.printStackTrace();
+		}				
+		return usuario;
+	}
 	private Collection<? extends GrantedAuthority> authMappingRol(Collection<Rol> roles) {
 		return roles.stream().map(rol -> 
 		new SimpleGrantedAuthority(rol.getNombre())).collect(Collectors.toList());
