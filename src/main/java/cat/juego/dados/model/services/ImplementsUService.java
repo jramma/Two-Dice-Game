@@ -79,12 +79,12 @@ public class ImplementsUService implements UserService {
 	}
 
 	@Override
-	public List<Partida> getPartidas(int id_usuario) {
+	public List<Partida> getPartidas(int id) {
 
 		ArrayList<Partida> partidas = new ArrayList<>();
 
 		for (int i = 0; i < partidasRepo.findAll().size(); i++) {
-			if (partidasRepo.findAll().get(i).getUsuario_id() == id_usuario) {
+			if (partidasRepo.findAll().get(i).getUsuario_id() == id ){
 				partidas.add(partidasRepo.findAll().get(i));
 			}
 
@@ -94,8 +94,8 @@ public class ImplementsUService implements UserService {
 	}
 
 	@Override
-	public Usuario findById(int id_usuario) {
-		return usuarios.findById(id_usuario).get();
+	public Usuario findById(int id) {
+		return usuarios.findById(id).get();
 	}
 
 	@Override
@@ -129,27 +129,29 @@ public class ImplementsUService implements UserService {
 	public double calularRanquingAbsoluto() {
 		int victorias = 0;
 		int derrotas = 0;
-		if (!(partidasRepo.findAll() == null)) {
-			for (int j = 0; j < partidasRepo.findAll().size(); j++) {
-				if (partidasRepo.findAll().get(j).getResultado().equalsIgnoreCase("victory")) {
+		double media = 0;
+		ArrayList<Partida> partidas = (ArrayList<Partida>) partidasRepo.findAll();
+		if (partidas != null) {
+			for (int j = 0; j < partidas.size(); j++) {
+				if (partidas.get(j).getResultado().equalsIgnoreCase("victory")) {
 					victorias++;
 				} else {
 					derrotas++;
 				}
 			}
+			media =(double)victorias /(victorias + derrotas);
 		}
-		double media;
-		if (!(victorias == 0 && derrotas == 0)) {
-			media = victorias / (victorias + derrotas);
-		}
-
-		media = 0;
-		return media;		
+		return media;
 	}
 
 	@Override
 	public List<Partida> todasLasPartidas() {
 		return partidasRepo.findAll();
+	}
+
+	@Override
+	public Partida savePartida(Partida partida) {
+		return partidasRepo.save(partida);
 	}
 
 }

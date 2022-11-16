@@ -21,4 +21,5 @@ public interface UserService extends UserDetailsService {
 	public Usuario buscarUsuarioDosVeces(String nombre);
 	public double calularRanquingAbsoluto();
 	public List<Partida> todasLasPartidas();
+	public Partida savePartida(Partida partida);
 }

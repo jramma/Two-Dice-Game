@@ -6,32 +6,30 @@ body {
 	background-color: #0e0f16;
 	margin: 0.1em;
 	color: white;
+	text-align: center;
 }
 
 nav.nav {
 	background-color: #1a1b28;
 	padding: 1em;
 	text-align: center;
+	text-decoration: none;
 }
-
+a nav{
+	text-decoration: none;
+}
 a.titulo {
 	text-decoration: none;
 	color: rgb(218, 218, 218);
 }
 
-.contenido {
-	text-align: center;
-	
-}
-.tabla{
-	border-radius: 0.4em;
-	
-}
+
+
 div.btn {
 	text-align: center;
 }
 
-a.log {
+.log {
 	border: 2px;
 	background-color: #4cb200;
 	padding: 0.6em;
@@ -42,7 +40,7 @@ a.log {
 	color: white;
 }
 
-a.log:hover {
+.log:hover {
 	padding: 0.7em;
 }
 
@@ -54,8 +52,31 @@ p.sub {
 .contenido{
 	text-align: center;
 	padding: 1em;
-	background-color: #4cb200;
 }
 .titulo{
 	color: aqua;
+}
+.info{
+	font-size: 0.7em;	
+	color: #ffffffd5;
+	padding-bottom:1em ;
+}
+.tabla{
+	background-color: #1a1b28;
+	text-align: center;
+	margin: auto;
+}
+.text{
+	padding: 0.5em;
+}
+button.log{
+	padding: 0.7em;
+	font-size: 0.9em;
+}
+button.log:hover{
+	padding:0.9em;
+}
+.ini{
+	color: #4cb200;
+	text-decoration: underline;
 }

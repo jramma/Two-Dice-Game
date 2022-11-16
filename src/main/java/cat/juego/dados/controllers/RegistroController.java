@@ -28,11 +28,10 @@ public class RegistroController {
 	@GetMapping("/")
 	public String verInicio(Authentication auth, Model model) {
 		Usuario usuario = userService.buscarUsuario(auth.getName());
-		model.addAttribute("jugador", usuario);
 
 		List<Partida> partidas = userService.getPartidas(usuario.getId());
 		usuario.setRanquing(caluleteRanquing(partidas));
-
+		model.addAttribute("jugador", usuario);
 		model.addAttribute("jugadas", partidas);
 
 		return "cuenta";
@@ -41,7 +40,9 @@ public class RegistroController {
 	public double caluleteRanquing(List<Partida> partidas) {
 		int victorias = 0;
 		int derrotas = 0;
-		if (!(partidas == null)) {
+		double media = 0;
+
+		if (partidas != null) {
 			for (int j = 0; j < partidas.size(); j++) {
 				if (partidas.get(j).getResultado().equalsIgnoreCase("victory")) {
 					victorias++;
@@ -49,13 +50,8 @@ public class RegistroController {
 					derrotas++;
 				}
 			}
+			media =(double)victorias /(victorias + derrotas);
 		}
-		double media;
-		if (!(victorias == 0 && derrotas == 0)) {
-			media = victorias / (victorias + derrotas);
-		}
-
-		media = 0;
 		return media;
 	}
 
@@ -76,7 +72,7 @@ public class RegistroController {
 		String respuesta;
 		if (userService.buscarUsuarioDosVeces(nombre) == null) {
 			userService.saveUser(usuario1);
-			respuesta = "redirect:/";
+			respuesta = "redirect:/login";
 		} else {
 			respuesta = "redirect:/update?error";
 		}
@@ -107,13 +103,10 @@ public class RegistroController {
 
 	@GetMapping("/juego")
 	public String juego(Model model, Authentication auth) {
-		for (int i = 0; i < userService.getAllUsers().size(); i++) {
-
-			userService.getAllUsers().get(i)
-					.setRanquing(caluleteRanquing(userService.getPartidas(userService.getAllUsers().get(i).getId())));
-		}
-
-		model.addAttribute("jugadores", userService.getAllUsers());
+		Usuario usuario = userService.buscarUsuario(auth.getName());	
+		Partida partida = new Partida(usuario.getId());
+		userService.savePartida(partida);	
+		model.addAttribute("partida",partida);
 		return "juego";
 
 	}

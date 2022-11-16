@@ -11,16 +11,19 @@ import javax.persistence.Id;
 
 import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@NoArgsConstructor
+
 
 @Getter
 @Setter
 @Entity
 @Table(name = "partidas")
+@AllArgsConstructor
+@NoArgsConstructor
 public class Partida implements Serializable{
 	
 	
@@ -47,16 +50,17 @@ public class Partida implements Serializable{
 	private String resultado;
 	
 	
-	public Partida(int dado1, int dado2) {
+	public Partida(int usuario_id) {
 		String resultado1;
-		this.dado1 = dado1;
-		this.dado2 = dado2;
+		this.dado1 =(int)(Math.random()*6+1);
+		this.dado2 = (int)(Math.random()*6+1);
 		if(dado1+dado2==7) {
 			resultado1 = "victory";
 		}else {
 			resultado1 = "you lose";
 		}
 		this.resultado = resultado1;
+		this.usuario_id = usuario_id;
 	}
 	
 	

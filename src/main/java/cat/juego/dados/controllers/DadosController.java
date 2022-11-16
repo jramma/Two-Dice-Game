@@ -1,14 +1,10 @@
 package cat.juego.dados.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 
-import cat.juego.dados.model.domain.Usuario;
+import org.springframework.stereotype.Controller;
+
 import cat.juego.dados.model.dto.UsuarioRegistroDto;
-import cat.juego.dados.model.repository.PartidaRepository;
 import cat.juego.dados.model.services.UserService;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,8 +18,6 @@ public class DadosController {
 
 	@Autowired
 	private UserService service;
-	
-
 
 //	POST: /players/add: crea un jugador/a. 
 // http://localhost:9001/players
@@ -49,7 +43,7 @@ public class DadosController {
 		return respuesta;
 
 	}
-	//----------------------------------------------------------------------------------------------
+	// ----------------------------------------------------------------------------------------------
 //	@PreAuthorize("hasRole('ROLE_USER')")
 //	@GetMapping("/create")
 //	public String abrirSesion(@ModelAttribute("usuario") Usuario usuario) {
@@ -57,7 +51,5 @@ public class DadosController {
 //	return "cuenta";
 //
 //	}
-	
-	
-	 
+
 }
