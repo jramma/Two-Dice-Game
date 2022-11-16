@@ -1,23 +1,120 @@
 package cat.juego.dados.controllers;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
+import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+
+import cat.juego.dados.model.domain.Partida;
+import cat.juego.dados.model.domain.Usuario;
+import cat.juego.dados.model.services.UserService;
 
 @Controller
 public class RegistroController {
-	//http://localhost:9001/login
+	@Autowired
+	private UserService userService;
+
+	// http://localhost:9001/login
 	@GetMapping("/login")
 	public String iniciarSesion() {
 		return "inicio_sesion";
 	}
 
-	
-	
 	@GetMapping("/")
-	public String verInicio() {
+	public String verInicio(Authentication auth, Model model) {
+		Usuario usuario = userService.buscarUsuario(auth.getName());
+		model.addAttribute("jugador", usuario);
+
+		List<Partida> partidas = userService.getPartidas(usuario.getId());
+		usuario.setRanquing(caluleteRanquing(partidas));
+
+		model.addAttribute("jugadas", partidas);
+
 		return "cuenta";
 	}
-	
-	
+
+	public double caluleteRanquing(List<Partida> partidas) {
+		int victorias = 0;
+		int derrotas = 0;
+		if (!(partidas == null)) {
+			for (int j = 0; j < partidas.size(); j++) {
+				if (partidas.get(j).getResultado().equalsIgnoreCase("victory")) {
+					victorias++;
+				} else {
+					derrotas++;
+				}
+			}
+		}
+		double media;
+		if (!(victorias == 0 && derrotas == 0)) {
+			media = victorias / (victorias + derrotas);
+		}
+
+		media = 0;
+		return media;
+	}
+
+	// http://localhost:9001/update
+
+	@GetMapping("/update")
+	public String verUpdate(Authentication auth, Model model) {
+		Usuario usuario = userService.buscarUsuario(auth.getName());
+		model.addAttribute("usuario", usuario);
+		return "update";
+	}
+
+	@PostMapping("/updating")
+	public String updateUser(@ModelAttribute("nombre") String nombre, Authentication auth) {
+		Usuario usuario1 = userService.buscarUsuario(auth.getName());
+		usuario1.setNombre(nombre);
+		userService.saveUser(usuario1);
+		String respuesta;
+		if (userService.buscarUsuarioDosVeces(nombre) == null) {
+			userService.saveUser(usuario1);
+			respuesta = "redirect:/";
+		} else {
+			respuesta = "redirect:/update?error";
+		}
+		return respuesta;
+
+	}
+
+	@GetMapping("/ranquings")
+	public String ranquings(Model model) {
+		model.addAttribute("ranquingAbsoluto", userService.calularRanquingAbsoluto());
+		model.addAttribute("partidas", userService.todasLasPartidas());
+		return "ranquings";
+
+	}
+
+	@GetMapping("/getAll")
+	public String getAll(Model model) {
+		for (int i = 0; i < userService.getAllUsers().size(); i++) {
+
+			userService.getAllUsers().get(i)
+					.setRanquing(caluleteRanquing(userService.getPartidas(userService.getAllUsers().get(i).getId())));
+		}
+
+		model.addAttribute("jugadores", userService.getAllUsers());
+		return "stats";
+
+	}
+
+	@GetMapping("/juego")
+	public String juego(Model model, Authentication auth) {
+		for (int i = 0; i < userService.getAllUsers().size(); i++) {
+
+			userService.getAllUsers().get(i)
+					.setRanquing(caluleteRanquing(userService.getPartidas(userService.getAllUsers().get(i).getId())));
+		}
+
+		model.addAttribute("jugadores", userService.getAllUsers());
+		return "juego";
+
+	}
 }

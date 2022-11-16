@@ -2,10 +2,13 @@ package cat.juego.dados.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 
 import cat.juego.dados.model.domain.Usuario;
 import cat.juego.dados.model.dto.UsuarioRegistroDto;
+import cat.juego.dados.model.repository.PartidaRepository;
 import cat.juego.dados.model.services.UserService;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +22,8 @@ public class DadosController {
 
 	@Autowired
 	private UserService service;
+	
+
 
 //	POST: /players/add: crea un jugador/a. 
 // http://localhost:9001/players
@@ -35,7 +40,7 @@ public class DadosController {
 	@PostMapping
 	public String registrarUsuario(@ModelAttribute("usuario") UsuarioRegistroDto registroDto) {
 		String respuesta;
-		if (service.yaExiste(registroDto.getNombre()) == null) {
+		if (service.buscarUsuario(registroDto.getNombre()) == null) {
 			service.saveUser(registroDto);
 			respuesta = "redirect:/players?exito";
 		} else {
@@ -45,11 +50,14 @@ public class DadosController {
 
 	}
 	//----------------------------------------------------------------------------------------------
-	@PreAuthorize("hasRole('ROLE_USER')")
-	@GetMapping("/create")
-	public String abrirSesion(@ModelAttribute("usuario") Usuario usuario) {
+//	@PreAuthorize("hasRole('ROLE_USER')")
+//	@GetMapping("/create")
+//	public String abrirSesion(@ModelAttribute("usuario") Usuario usuario) {
+//	
+//	return "cuenta";
+//
+//	}
 	
-	return "cuenta";
-
-	}
+	
+	 
 }

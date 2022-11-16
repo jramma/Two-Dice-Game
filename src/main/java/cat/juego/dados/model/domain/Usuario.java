@@ -46,7 +46,6 @@ public class Usuario {
 	@Column(name = "ranquing", nullable = false)
 	private double ranquing;
 	
-	private ArrayList<Partida> partida_id= new ArrayList<>();
 	
 	@Column(name = "date")
 	private String date;
@@ -62,33 +61,13 @@ public class Usuario {
 	
 
 
-	public double caluleteRanquing() {
-		int victorias = 0;
-		int derrotas = 0;
-		if (!(partida_id == null)) {
-			for (int j = 0; j < partida_id.size(); j++) {
-				if (partida_id.get(j).getResultado().equalsIgnoreCase("victory")) {
-					victorias++;
-				} else {
-					derrotas++;
-				}
-			}
-		}
-		double media;
-		if (!(victorias == 0 && derrotas == 0)) {
-			media = victorias / (victorias + derrotas);
-		}
-
-		media = 0;
-		return media;
-	}
+	
 
 	public Usuario(String nombre, String password, double ranquing, ArrayList<Partida> partidas, String date,
 			Collection<Rol> roles) {
 		this.nombre = nombre;
 		this.password = password;
 		this.ranquing = ranquing;
-		this.partida_id = partidas;
 		this.date = date;
 		this.roles = roles;
 	}

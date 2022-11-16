@@ -12,8 +12,8 @@
 	<nav class="nav">
 		<div>
 			<a sec:authorize="isAuthenticated()" class="log"
-				href="/players/ranking">Ranquings</a> <a
-				sec:authorize="isAuthenticated()" class="log"> Jugar </a> <a
+				href="/ranquings">Ranquings</a> <a
+				sec:authorize="isAuthenticated()" href="/juego"class="log"> Jugar </a> <a
 				sec:authorize="isAuthenticated()" class="log" th:href="@{/logout}">Logout</a>
 		</div>
 	</nav>
@@ -22,14 +22,16 @@
 	<br>
 	<!-- On tables -->
 	<div class="contenido">
-		<span sec:authentication="principal.username"></span>
-		<!-- <table class="tabla">
+		<!--	<span sec:authentication="principal.username" th:object="${nombre}" ></span>-->
+		
+		<table class="tabla">
 
 			<thead>
 				<tr>
 
 					<th class="text">Nombre</th>
 					<th class="text">Fecha de alta</th>
+					<th class="text">Ranquing Personal</th>
 
 				</tr>
 			</thead>
@@ -37,6 +39,7 @@
 				<tr class="text" th:each="jugador:${jugador}">
 					<td class="text" th:text="${jugador.nombre}">1</td>
 					<td class="text" th:text="${jugador.date}">2</td>
+					<td class="text" th:text="${jugador.ranquing}">2</td>
 
 
 				</tr>
@@ -44,8 +47,8 @@
 		</table>
 		<div>
 			<br> <a class="log"
-				href=" http://localhost:9001/players/update/{id}"
-				th:href="@{/players/{id}/games/(id=${jugador.id_usuario})}">Cambiar
+				href=" http://localhost:9001/update"
+				>Cambiar
 				nombre</a>
 		</div>
 		<br>
@@ -66,7 +69,7 @@
 					<td class="text" th:text="${jugadas.resultado}">resultado</td>
 				</tr>
 			</tbody>
-		</table> -->
+		</table>
 	</div>
 </body>
 </html>

@@ -9,34 +9,33 @@
 </head>
 <body>
 
-	<nav class="navbar navbar-expand-lg bg-light">
+	<nav class="nav">
 		<div>
-			<a  href="#">Ranquings</a> 
-			<a 	href="/sucursal/add">Mi cuenta</a>
+			<a class="log" href="/ranquings">Ranquings</a> <a class="log"
+				href="/">Mi cuenta</a>
 		</div>
 	</nav>
 	<br>
-	<h1 class="boton" style="width: 400px;">Cambiar nombre:</h1>
+	<h1>Cambiar nombre:</h1>
 	<br>
-	<div class="form" style="width: 400px;">
-		<form th:action="@{/updating}" th:object="${usuario}" method="POST">
-			<div class="form-group">
-				<label> Id </label> <input type="text" name="id"
-					th:field="*{id_usuari}" class="form-control"
-					placeholder="Type the name... ">
-			</div>
-			<br>
-			<div class="form-group">
-				<label for="exampleInputEmail1" class="form-label">Nombre:</label> <input
-					type="text" name="nombre" th:field="*{nombre}" class="form-control"
-					placeholder="Escribe el nombre... ">
-				<div class="info">Debes usar un nombre que
-					no este en uso.</div>
-			</div>
+	<div th:if=${param.error}>
+			<div class="error">El nombre ya existe</div>
+		</div>
+	<div class="contenido">
+		<div class="form" style="width: 400px;">
+			<form th:action="@{/updating}" th:object="${usuario}" method="POST">			
+				<br>
+				<div class="form-group">
+					<label class="form-label">Nombre:</label>
+					<input type="text" name="nombre" th:field="*{nombre}"
+						class="form-control" placeholder="Escribe el nombre... ">
+					<div class="info">Debes usar un nombre que no este en uso.</div>
+				</div>
 
 
-			<button type="submit" class="btn btn-primary">Submit</button>
-		</form>
+				<button type="submit" class="btn btn-primary">Submit</button>
+			</form>
+		</div>
 	</div>
 </body>
 </html>
