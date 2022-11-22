@@ -43,13 +43,6 @@ public class DadosController {
 		return respuesta;
 
 	}
-	// ----------------------------------------------------------------------------------------------
-//	@PreAuthorize("hasRole('ROLE_USER')")
-//	@GetMapping("/create")
-//	public String abrirSesion(@ModelAttribute("usuario") Usuario usuario) {
-//	
-//	return "cuenta";
-//
-//	}
+
 
 }
