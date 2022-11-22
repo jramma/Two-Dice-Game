@@ -11,59 +11,26 @@ El proyecto puede ser descargado en un archivo .zip y hacerlo funcionar en tu ID
 La API funciona con SQL, tienes el script de la base de datos en este repositorio (game.sql).
 
 ## Endpoints
-1. http://localhost:8080/auth/create  - POST
 
-Crear un usuario. Si el nombre se repite con alguno de la base de datos lanza error. El nombre, password y rol no pueden estar vacíos, sino lanza error.
+Entra en:
 
+http://localhost:9001
 
-2. http://localhost:8080/auth/login  - POST
+Y tendrás que iniciar sesión o registrarte. Todo la interdaz es visual e intuitiva así que puedes ir investigando los usuarios simplemente usando la API.
+Si quieres saber exactamente los endopoinds y como funcionan al detalle ves a la clase DadosController y RegistroController (hábitualmente llamadas AuthController y Controller).
 
-Enlace para iniciar sesión. Si inicia sesión correctamente te devuelve el JWT token que necesitas para acceder al resto de la API.
+Te dejo un gif con ejemplos de lo que hace:
 
+![1](https://user-images.githubusercontent.com/107991714/203300997-4702d0d2-dc48-4d5c-8c7c-06b384456501.gif)
 
-3. http://localhost:8080/editProfile  - PUT
+![2](https://user-images.githubusercontent.com/107991714/203301011-9dceae6f-e770-4699-a697-93e71e37621e.gif)
 
-Enlace para editar el nombre. Debes enviar el nuevo String (nombre) que deseas tener y poner tu JWT token. Se actualizará el nombre y te devolverá el usuario con su nuevo nombre.
+![3](https://user-images.githubusercontent.com/107991714/203301035-03cb0c5f-9dd8-4938-b49a-60c51d31dc10.gif)
 
-
-4. http://localhost:8080/getJugadas/{id}  - GET
-
-Te devolverá las partidas de un jugador en concreto, el que indiques en la {id}. PD: las Id se autoincrementan en la API empezando por el 1 (no son ObjectID de mongo).
-
-
-5. http://localhost:8080/jugar  - POST
-
-Jugar una partida.
-
-6. http://localhost:8080/winner  -GET
-
-Te devuelve el jugador con mejor ranquing.
-
-7. http://localhost:8080/loser  - GET
-
-Te devuelve el jugador con peor ranquing.
-
-
-8. http://localhost:8080/eliminarPartidas  - DELETE
-
-Elimina las partidas del usuario que este logueado.
 
 
 ## API Design
 
-La estructura de los paquetes es la siguiente:
-
-- Controller: aporta los endpoints con la inyección del servicio de usuarios.
-- Domain: aquí se encuentra la clase Partida.
-- Exception: excepciones.
-- Utilities: paquete con utilidades, en este caso un comparador de ranquings.
-
-- Security: dentro del paquete security tenemos todos los paquetes que se relacionan con seguridad.
-- Config: dentro tienes las clases que configuran los beans y el filtro de seguridad.
-- Controller: controlador de seguridad(logueo y creación de usuarios).
-- Dto: contiene todos los DTOs; creción de usuario, jwtoken, usuarioLogueo, mensajes y roles de usuario.
-- JWT: contiene las clases que relacionadas con los json web token.
-- Repository: en este caso solo contiene la clase usuario.
-- Service: tiene los servicios. Podrían estar fuera del paquete security pero en este caso tienen tanto la encriptación como implementación de JWT, así que los he dejado ahí.
+La estructura es la siguiente:
 
 
