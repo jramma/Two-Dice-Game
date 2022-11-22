@@ -19,7 +19,7 @@ http://localhost:9001
 Y tendrás que iniciar sesión o registrarte. Todo la interdaz es visual e intuitiva así que puedes ir investigando los usuarios simplemente usando la API.
 Si quieres saber exactamente los endopoinds y como funcionan al detalle ves a la clase DadosController y RegistroController (hábitualmente llamadas AuthController y Controller).
 
-Te dejo un gif con ejemplos de lo que hace:
+Te dejo 3 gif con ejemplos de lo que hace:
 
 ![1](https://user-images.githubusercontent.com/107991714/203300997-4702d0d2-dc48-4d5c-8c7c-06b384456501.gif)
 
