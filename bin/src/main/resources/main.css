@@ -21,8 +21,12 @@ a.titulo {
 
 .contenido {
 	text-align: center;
+	
 }
-
+.tabla{
+	border-radius: 0.4em;
+	
+}
 div.btn {
 	text-align: center;
 }

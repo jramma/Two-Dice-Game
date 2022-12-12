@@ -15,7 +15,7 @@ import cat.juego.dados.model.domain.Usuario;
 import cat.juego.dados.model.services.UserService;
 
 @Controller
-public class RegistroController {
+public class GameController {
 	@Autowired
 	private UserService userService;
 

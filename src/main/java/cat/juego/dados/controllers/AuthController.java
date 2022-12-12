@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/players")
-public class DadosController {
+public class AuthController {
 
 	@Autowired
 	private UserService service;
