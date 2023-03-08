@@ -1,4 +1,4 @@
-# Two-Dice-Gam# TwoDiceGame-JwtSecurity-Mongo
+# Two-Dice-Gam# TwoDiceGame-JwtSecurity
 
 API con interfaz visual de un juego de dados que consiste en sacar un 7 para ganar. En el juego tenemos un registro de usuarios, partidas y ranquings. Todo está encritado y con Json Web Tokens.
 
